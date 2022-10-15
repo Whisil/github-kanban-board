@@ -1,0 +1,13 @@
+
+.header{
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.header :global(.ant-space){
+    width: 100%;
+}
+
+.header-space :global(.ant-space-item):first-child{
+    width: 100%;
+}

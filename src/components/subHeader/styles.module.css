@@ -1,0 +1,16 @@
+.link-container a{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.stars{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.stars .stars-count{
+    font-weight: 500;
+    line-height: 1;
+}

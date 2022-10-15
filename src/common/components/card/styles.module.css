@@ -1,0 +1,22 @@
+.card{
+    border-radius: 15px !important;
+    padding: 15px !important;
+    border-color: #848484 !important;
+}
+
+.card > :global(.ant-card-body){
+    padding: 0;
+}
+
+.card span, .card a{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.userLink{
+    color: inherit;
+}
+
+.divider{
+    padding: 0 5px;
+}

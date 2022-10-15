@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 
 const SubHeader = () => {
     return(
-        <Space size="large">
+        <Space size="large" className={styles['sub-header']}>
             <Space className={styles['link-container']}>
                 <a href="/">Facebook</a>
                 <RightOutlined style={{color: `#1890ff`}} />

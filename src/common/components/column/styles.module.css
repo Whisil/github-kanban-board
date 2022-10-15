@@ -1,0 +1,25 @@
+.column{
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.column > :global(.ant-space-item):last-child{
+    flex: 1;
+}
+
+.column-inner{
+    padding: 15px;
+    width: 100%;
+    background-color: #c7c5c5;
+    height: 100%;
+}
+
+.column-inner > :global(.ant-space-item){
+    width: 100%;
+}
+
+.title{
+    text-align: center;
+}

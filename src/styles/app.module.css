@@ -1,0 +1,15 @@
+.layout{
+    background-color: #e3e1e1;
+    min-height: 100vh !important;
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.row{
+    min-height: 100%;
+    flex: 1;
+}
+.row > :global(.ant-col){
+    flex: 1;
+}

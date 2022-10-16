@@ -1,3 +1,4 @@
+import { HolderOutlined } from "@ant-design/icons";
 import { Card, Space, Typography } from "antd";
 import { formatTime } from "../../utils/timestampFormatter";
 import styles from "./styles.module.css";
@@ -23,8 +24,14 @@ const IssueCard = ({
 
   return (
     <Card bordered className={styles.card}>
-      <Space size={8} direction="vertical">
-        <Title level={4}>{title}</Title>
+      <Space size={8} direction="vertical" style={{width: "100%"}}>
+        <Space className={styles['card-header']} >
+          <Title level={4}>{title}</Title>
+          <HolderOutlined
+            height={20}
+            style={{ fontSize: "24px", fontWeight: 500 }}
+          />
+        </Space>
         <span>
           #{issueNumber} opened {formatTime(openTimestamp)}
         </span>

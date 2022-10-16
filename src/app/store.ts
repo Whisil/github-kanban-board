@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import boardReducer from '../features/board/boardSlice';
+import issuesReducer from '../features/board/issuesSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: boardReducer,
+    issues: issuesReducer,
   },
 });
 

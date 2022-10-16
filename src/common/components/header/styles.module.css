@@ -2,6 +2,9 @@
 .header{
     padding: 0 !important;
     background-color: transparent !important;
+    line-height: 1 !important;
+    padding: 15px 0 !important;
+    height: unset !important;
 }
 
 .header :global(.ant-space){

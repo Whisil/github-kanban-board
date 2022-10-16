@@ -1,24 +1,51 @@
-import { Layout, Input, Button, Space } from "antd";
-import { useEffect } from "react";
-import { useAppDispatch } from "../../../app/hooks";
+import { Layout, Input, Button, Space, message } from "antd";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { fetchIssues } from "../../../features/board/issuesSlice";
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 const Header = () => {
+  const [inputValue, setInputValue] = useState<string>(``);
+
   const { Header } = Layout;
 
   const dispatch = useAppDispatch();
+  const errorMessage = useAppSelector((state) => state.issues.error);
 
   useEffect(() => {
-    const timeout = setTimeout(() => dispatch(fetchIssues(`https://github.com/facebook/react/issues`)));
-    return () => clearTimeout(timeout);
-  }, [dispatch]);
+    if(errorMessage.length !== 0){
+      message.error(errorMessage);
+    }
+  }, [errorMessage])
+
+  const handleLoad = () => {
+    if (inputValue.startsWith("https://")) {
+      dispatch(fetchIssues(inputValue));
+    } else {
+      dispatch(fetchIssues(`https://${inputValue}`));
+      setInputValue(`https://${inputValue}`);
+    }
+  };
 
   return (
     <Header className={styles.header}>
-      <Space className={styles['header-space']}>
-        <Input size="large" placeholder="Enter repo URL" />
-        <Button size="large" type="primary" >Load issues</Button>
+      <Space className={styles["header-space"]} align="start">
+        <div>
+          <Input
+            size="large"
+            placeholder="Enter repo URL"
+            onChange={(e) => setInputValue(e.target.value)}
+            value={inputValue}
+          />
+        </div>
+        <Button
+          size="large"
+          type="primary"
+          disabled={!inputValue.includes(`github.com`)}
+          onClick={handleLoad}
+        >
+          Load issues
+        </Button>
       </Space>
     </Header>
   );

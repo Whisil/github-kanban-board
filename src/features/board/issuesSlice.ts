@@ -7,7 +7,7 @@ export const fetchIssues = createAsyncThunk(
     try {
       return await getIssues(url);
     } catch (err) {
-      return thunkAPI.rejectWithValue(`Error. Maybe check your link?`);
+      return thunkAPI.rejectWithValue(`C'mon, check your link!`);
     }
   }
 );
@@ -44,6 +44,7 @@ export const issuesSlice = createSlice({
     [fetchIssues.pending.type]: (state) => {
       state.isLoading = true;
       state.column = [];
+      state.error = ``;
     },
     [fetchIssues.rejected.type]: (state, action) => {
       state.isLoading = false;

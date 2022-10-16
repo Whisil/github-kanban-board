@@ -9,13 +9,17 @@ const periods = {
 export function formatTime(timestamp: string) {
   const diff = Date.now() - Date.parse(timestamp);
 
-  if(diff > periods.year){
-    return new Date(timestamp).toLocaleDateString(`default`, { year: "numeric", month: "long", day: "numeric"})
-  }
-  else if (diff > periods.week) {
-    return (
-      new Date(timestamp).toLocaleString(`default`, { month: "long", day: "numeric" })
-    );
+  if (diff > periods.year) {
+    return new Date(timestamp).toLocaleDateString(`default`, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } else if (diff > periods.week) {
+    return new Date(timestamp).toLocaleString(`default`, {
+      month: "long",
+      day: "numeric",
+    });
   } else if (diff > periods.day) {
     if (Math.floor(diff / periods.day) === 1) {
       return Math.floor(diff / periods.day) + ` day ago`;

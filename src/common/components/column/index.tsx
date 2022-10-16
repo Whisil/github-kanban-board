@@ -4,23 +4,29 @@ import styles from "./styles.module.css";
 
 interface ColumnProps {
   title: string;
+  issues: any[];
 }
 
-const Column = ({ title }: ColumnProps) => {
+const Column = ({ title, issues }: ColumnProps) => {
   const { Title } = Typography;
 
   return (
     <Space size={20} direction="vertical" className={styles.column}>
-      <Title level={3} className={styles.title} >{title}</Title>
+      <Title level={3} className={styles.title}>
+        {title}
+      </Title>
       <Space direction="vertical" size={15} className={styles["column-inner"]}>
-        <IssueCard
-          title="hey it's a title"
-          issueNumber={3}
-          openTimestamp="2022-10-16T09:40:35Z"
-          commentCount={3}
-          creatorName="David"
-          creatorLink="/"
-        />
+        {issues.length !== 0 && issues[0].map((item: any) => (
+          <IssueCard
+            key={item.issueNumber}
+            title={item.title}
+            issueNumber={item.issueNumber}
+            openedAtTimestamp={item.openedAtTimestamp}
+            commentCount={item.commentsCount}
+            creatorName={item.user}
+            creatorLink={item.userLink}
+          />
+        ))}
       </Space>
     </Space>
   );

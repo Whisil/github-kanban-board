@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 interface IssueCardProps {
   title: string;
   issueNumber: number;
-  openTimestamp: string;
+  openedAtTimestamp: string;
   commentCount: number;
   creatorName: string;
   creatorLink: string;
@@ -15,7 +15,7 @@ interface IssueCardProps {
 const IssueCard = ({
   title,
   issueNumber,
-  openTimestamp,
+  openedAtTimestamp,
   commentCount,
   creatorName,
   creatorLink,
@@ -33,7 +33,7 @@ const IssueCard = ({
           />
         </Space>
         <span>
-          #{issueNumber} opened {formatTime(openTimestamp)}
+          #{issueNumber} opened {formatTime(openedAtTimestamp)}
         </span>
         <div className={styles["card-footer"]}>
           <a className={styles.userLink} href={creatorLink}>

@@ -5,7 +5,7 @@ export const getIssues = async (url: string) => {
   const response = await fetch(
     `${
       baseURL + url.split(`/`)[3] + `/` + url.split("/")[4]
-    }/issues?per_page=60`,
+    }/issues?per_page=60?state=all`,
     {
       headers: {
         Accept: "application/vnd.github.v3+json",
@@ -20,10 +20,12 @@ export const getIssues = async (url: string) => {
         .map((item: any) => ({
           title: item.title,
           issueNumber: item.number,
-          openedTimestamp: item.created_at,
+          openedAtTimestamp: item.created_at,
           user: item.user.login,
           userLink: item.user.html_url,
           commentsCount: item.comments,
+          assignees: item.assignees,
+          closedAtTimestamp: item.closed_at
         })),
       data[0].repository_url,
     ]);

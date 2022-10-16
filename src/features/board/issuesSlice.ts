@@ -17,10 +17,12 @@ interface IssuesSliceState {
   issuesList: {
     title: string;
     issueNumber: number;
-    openedTimestamp: string;
+    openedAtTimestamp: string;
     user: string;
     userLink: string;
-    commentsCount: string;
+    commentsCount: number;
+    assignees: any[] | undefined;
+    closedAtTimestamp: string | null;
   }[];
   error: string;
   repoApiUrl: string;
@@ -47,7 +49,7 @@ export const issuesSlice = createSlice({
       state.isLoading = true;
       state.issuesList = [];
       state.error = ``;
-      state.repoApiUrl = '';
+      state.repoApiUrl = "";
     },
     [fetchIssues.rejected.type]: (state, action) => {
       state.isLoading = false;

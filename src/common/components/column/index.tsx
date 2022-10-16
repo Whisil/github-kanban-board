@@ -16,7 +16,7 @@ const Column = ({ title }: ColumnProps) => {
         <IssueCard
           title="hey it's a title"
           issueNumber={3}
-          openTimestamp="2022-08-11T14:47:58Z"
+          openTimestamp="2022-10-16T09:40:35Z"
           commentCount={3}
           creatorName="David"
           creatorLink="/"

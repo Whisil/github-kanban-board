@@ -14,22 +14,23 @@ export const fetchIssues = createAsyncThunk(
 
 interface IssuesSliceState {
   isLoading: boolean;
-  column: {
+  issuesList: {
     title: string;
     issueNumber: number;
     openedTimestamp: string;
     user: string;
     userLink: string;
     commentsCount: string;
-    repoApiUrl: string;
   }[];
   error: string;
+  repoApiUrl: string;
 }
 
 const initialState: IssuesSliceState = {
   isLoading: false,
-  column: [],
+  issuesList: [],
   error: "",
+  repoApiUrl: "",
 };
 
 export const issuesSlice = createSlice({
@@ -39,12 +40,14 @@ export const issuesSlice = createSlice({
   extraReducers: {
     [fetchIssues.fulfilled.type]: (state, action) => {
       state.isLoading = false;
-      state.column.push(action.payload);
+      state.issuesList.push(action.payload[0]);
+      state.repoApiUrl = action.payload[1];
     },
     [fetchIssues.pending.type]: (state) => {
       state.isLoading = true;
-      state.column = [];
+      state.issuesList = [];
       state.error = ``;
+      state.repoApiUrl = '';
     },
     [fetchIssues.rejected.type]: (state, action) => {
       state.isLoading = false;

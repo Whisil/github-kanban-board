@@ -14,7 +14,7 @@ export const getIssues = async (url: string) => {
     }
   )
     .then((res) => res.json())
-    .then((data) =>
+    .then((data) => [
       data
         .filter((item: any) => !item.pull_request)
         .map((item: any) => ({
@@ -24,9 +24,9 @@ export const getIssues = async (url: string) => {
           user: item.user.login,
           userLink: item.user.html_url,
           commentsCount: item.comments,
-          repoApiUrl: item.repository_url,
-        }))
-    );
+        })),
+      data[0].repository_url,
+    ]);
 
   return response;
 };

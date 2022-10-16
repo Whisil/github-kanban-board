@@ -13,3 +13,25 @@
 .row > :global(.ant-col){
     flex: 1;
 }
+
+.no-content{
+    justify-content: center;
+    width: fit-content !important;
+    text-align: center;
+    margin: auto;
+}
+
+.no-content-phrase{
+    font-weight: 500;
+}
+
+.spinner{
+    margin: auto;
+}
+.spinner :global(.ant-spin-dot){
+    font-size: 36px;
+}
+.spinner :global(.ant-spin-dot) i{
+    height: 18px;
+    width: 18px;
+}

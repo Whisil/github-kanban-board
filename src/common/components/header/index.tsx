@@ -13,12 +13,14 @@ const Header = () => {
   const errorMessage = useAppSelector((state) => state.issues.error);
 
   useEffect(() => {
-    if(errorMessage.length !== 0){
+    if (errorMessage.length !== 0) {
       message.error(errorMessage);
     }
-  }, [errorMessage])
+  }, [errorMessage]);
 
-  const handleLoad = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (inputValue.startsWith("https://")) {
       dispatch(fetchIssues(inputValue));
     } else {
@@ -27,26 +29,35 @@ const Header = () => {
     }
   };
 
+  const handleEnterPress = (e: React.KeyboardEvent) => {
+    if (e.keyCode === 13) {
+      handleSubmit(e);
+    }
+  };
+
   return (
     <Header className={styles.header}>
-      <Space className={styles["header-space"]} align="start">
-        <div>
-          <Input
+      <form onSubmit={handleSubmit}>
+        <Space className={styles["header-space"]} align="start">
+          <div>
+            <Input
+              size="large"
+              placeholder="Enter repo URL"
+              onChange={(e) => setInputValue(e.target.value)}
+              value={inputValue}
+              onKeyPress={handleEnterPress}
+            />
+          </div>
+          <Button
             size="large"
-            placeholder="Enter repo URL"
-            onChange={(e) => setInputValue(e.target.value)}
-            value={inputValue}
-          />
-        </div>
-        <Button
-          size="large"
-          type="primary"
-          disabled={!inputValue.includes(`github.com`)}
-          onClick={handleLoad}
-        >
-          Load issues
-        </Button>
-      </Space>
+            type="primary"
+            disabled={!inputValue.includes(`github.com`)}
+            htmlType="submit"
+          >
+            Load issues
+          </Button>
+        </Space>
+      </form>
     </Header>
   );
 };

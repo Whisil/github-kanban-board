@@ -24,13 +24,12 @@ const IssueCard = ({
 
   return (
     <Card bordered className={styles.card}>
-      <Space size={8} direction="vertical" style={{width: "100%"}}>
-        <Space className={styles['card-header']} >
-          <Title level={4}>{title}</Title>
-          <HolderOutlined
-            height={20}
-            style={{ fontSize: "24px", fontWeight: 500 }}
-          />
+      <Space size={8} direction="vertical" style={{ width: "100%" }}>
+        <Space className={styles["card-header"]} align="baseline">
+          <Title level={5} className={styles["card-title"]}>
+            {title}
+          </Title>
+          <HolderOutlined style={{ fontSize: "24px", fontWeight: 500 }} />
         </Space>
         <span>
           #{issueNumber} opened {formatTime(openedAtTimestamp)}

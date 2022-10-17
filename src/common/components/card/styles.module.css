@@ -19,6 +19,11 @@
     line-height: 1;
 }
 
+.card-title{
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
 .card-header :global(.anticon-holder){
     cursor: pointer;
 }

@@ -16,7 +16,7 @@ const Column = ({ title, issues }: ColumnProps) => {
         {title}
       </Title>
       <Space direction="vertical" size={15} className={styles["column-inner"]}>
-        {issues.length !== 0 && issues[0].map((item: any) => (
+        {issues.length !== 0 && issues.map((item: any) => (
           <IssueCard
             key={item.issueNumber}
             title={item.title}

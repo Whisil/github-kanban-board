@@ -27,7 +27,11 @@ export function formatTime(timestamp: string) {
       return Math.floor(diff / periods.day) + ` days ago`;
     }
   } else if (diff > periods.hour) {
-    return Math.floor(diff / periods.hour) + ` hours ago`;
+    if (Math.floor(diff / periods.hour) === 1) {
+      return Math.floor(diff / periods.hour) + ` hour ago`;
+    } else {
+      return Math.floor(diff / periods.hour) + ` hours ago`;
+    }
   } else if (diff > periods.minute) {
     return Math.floor(diff / periods.minute) + ` minutes ago`;
   } else {

@@ -17,24 +17,22 @@ function App() {
 
   useEffect(() => {
     if (issuesList.length !== 0) {
-      issuesList.forEach((item) => {
-        if (
-          (!item.assignees || item.assignees?.length === 0) &&
-          !item.closedAtTimestamp
-        ) {
+      issuesList[0].forEach((item: any) => {
+        if (!item.closedAtTimestamp && item.assignees.length === 0) {
           setToDoIssues((prevState) => [...prevState, item]);
-        } else if (
-          (item.assignees || item.assignees!.length === 0) &&
-          !item.closedAtTimestamp
-        ) {
+        } else if (!item.closedAtTimestamp && item.assignees.length !== 0) {
           setInProgressIssues((prevState) => [...prevState, item]);
-        } else {
+        } else if (item.closedAtTimestamp) {
           setDoneIssues((prevState) => [...prevState, item]);
         }
       });
+    } else {
+      setToDoIssues([]);
+      setInProgressIssues([]);
+      setDoneIssues([]);
     }
   }, [issuesList]);
-  // console.log(toDoIssues)
+
   return (
     <Layout className={styles.layout}>
       <Header />

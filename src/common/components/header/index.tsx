@@ -1,7 +1,7 @@
 import { Layout, Input, Button, Space, message } from "antd";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { fetchIssues } from "../../../features/board/issuesSlice";
+import { fetchRepo } from "../../../features/board/issuesSlice";
 import styles from "./styles.module.css";
 
 const Header = () => {
@@ -22,9 +22,9 @@ const Header = () => {
     e.preventDefault();
 
     if (inputValue.startsWith("https://")) {
-      dispatch(fetchIssues(inputValue));
+      dispatch(fetchRepo(inputValue));
     } else {
-      dispatch(fetchIssues(`https://${inputValue}`));
+      dispatch(fetchRepo(`https://${inputValue}`));
       setInputValue(`https://${inputValue}`);
     }
   };

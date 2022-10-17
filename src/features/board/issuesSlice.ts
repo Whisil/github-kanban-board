@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getIssues } from "../../api/repoIssuesAPI";
+import { getRepo } from "../../api/repoIssuesAPI";
 
-export const fetchIssues = createAsyncThunk(
+export const fetchRepo = createAsyncThunk(
   "issues/fetchIssues",
   async (url: string, thunkAPI) => {
     try {
-      return await getIssues(url);
+      return await getRepo(url);
     } catch (err) {
       return thunkAPI.rejectWithValue(`C'mon, check your link!`);
     }
@@ -21,18 +21,25 @@ interface IssuesSliceState {
     user: string;
     userLink: string;
     commentsCount: number;
-    assignees: any[] | undefined;
+    assignees: any[];
     closedAtTimestamp: string | null;
+    forEach: any;
   }[];
   error: string;
-  repoApiUrl: string;
+  repoInfo: {
+    repoName: string,
+    repoLink: string,
+    ownerName: string,
+    ownerLink: string,
+    starsCount: number,
+  } | null;
 }
 
 const initialState: IssuesSliceState = {
   isLoading: false,
   issuesList: [],
   error: "",
-  repoApiUrl: "",
+  repoInfo: null,
 };
 
 export const issuesSlice = createSlice({
@@ -40,18 +47,18 @@ export const issuesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchIssues.fulfilled.type]: (state, action) => {
+    [fetchRepo.fulfilled.type]: (state, action) => {
       state.isLoading = false;
       state.issuesList.push(action.payload[0]);
-      state.repoApiUrl = action.payload[1];
+      state.repoInfo = action.payload[2];
     },
-    [fetchIssues.pending.type]: (state) => {
+    [fetchRepo.pending.type]: (state) => {
       state.isLoading = true;
       state.issuesList = [];
       state.error = ``;
-      state.repoApiUrl = "";
+      state.repoInfo = null;
     },
-    [fetchIssues.rejected.type]: (state, action) => {
+    [fetchRepo.rejected.type]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

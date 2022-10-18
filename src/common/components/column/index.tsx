@@ -1,32 +1,21 @@
-import { Space, Typography } from "antd";
-import IssueCard from "../card";
+import { Space } from "antd";
 import styles from "./styles.module.css";
 
 interface ColumnProps {
   title: string;
-  issues: any[];
+  children: React.ReactNode;
 }
 
-const Column = ({ title, issues }: ColumnProps) => {
-  const { Title } = Typography;
+const Column = ({ children }: ColumnProps) => {
 
   return (
-    <Space size={20} direction="vertical" className={styles.column}>
-      <Title level={3} className={styles.title}>
-        {title}
-      </Title>
-      <Space direction="vertical" size={15} className={styles["column-inner"]}>
-        {issues.length !== 0 && issues.map((item: any) => (
-          <IssueCard
-            key={item.issueNumber}
-            title={item.title}
-            issueNumber={item.issueNumber}
-            openedAtTimestamp={item.openedAtTimestamp}
-            commentCount={item.commentsCount}
-            creatorName={item.user}
-            creatorLink={item.userLink}
-          />
-        ))}
+    <Space
+      size={20}
+      direction="vertical"
+      className={styles.column}
+    >
+      <Space size={0} direction="vertical" className={styles["column-inner"]}>
+        {children}
       </Space>
     </Space>
   );

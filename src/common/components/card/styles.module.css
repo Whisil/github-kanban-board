@@ -13,6 +13,10 @@
     font-weight: 400;
 }
 
+.card-dragged{
+    box-shadow: 0px 0px 20px 0px rgba(85,94,189,1);
+}
+
 .card-header{
     width: 100%;
     justify-content: space-between;

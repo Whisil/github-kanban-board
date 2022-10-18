@@ -1,12 +1,12 @@
 import { GithubOutlined } from "@ant-design/icons";
-import { Col, Layout, Row, Space, Spin } from "antd";
+import { Layout, Space, Spin } from "antd";
 import { useEffect, useState } from "react";
-import Column from "../common/components/column";
 import Header from "../common/components/header";
 import SubHeader from "../common/components/subHeader";
 import { useAppSelector } from "./hooks";
 
 import styles from "../styles/app.module.css";
+import DragNDrop from "../common/components/dragNDrop";
 
 function App() {
   const [toDoIssues, setToDoIssues] = useState<any[]>([]);
@@ -26,32 +26,32 @@ function App() {
           setDoneIssues((prevState) => [...prevState, item]);
         }
       });
-    } else {
+    } else if (
+      (issuesList.length === 0 && inProgressIssues.length !== 0) ||
+      doneIssues.length !== 0 ||
+      toDoIssues.length !== 0
+    ) {
       setToDoIssues([]);
       setInProgressIssues([]);
       setDoneIssues([]);
     }
-  }, [issuesList]);
+  }, [issuesList]); //eslint-disable-line
 
   return (
     <Layout className={styles.layout}>
       <Header />
-      {issuesList.length !== 0 && !isLoading ? (
+      {issuesList.length !== 0 &&
+      (toDoIssues.length !== 0 ||
+        inProgressIssues.length !== 0 ||
+        doneIssues.length !== 0) &&
+      !isLoading ? (
         <>
           <SubHeader />
-          <Row gutter={20} className={styles.row}>
-            <Col span={8}>
-              <Column title="To Do" issues={toDoIssues} />
-            </Col>
-
-            <Col span={8}>
-              <Column title="In Progress" issues={inProgressIssues} />
-            </Col>
-
-            <Col span={8}>
-              <Column title="Done" issues={doneIssues} />
-            </Col>
-          </Row>
+          <DragNDrop
+            toDo={toDoIssues}
+            inProgress={inProgressIssues}
+            done={doneIssues}
+          />
         </>
       ) : !isLoading ? (
         <Space direction="vertical" className={styles["no-content"]}>

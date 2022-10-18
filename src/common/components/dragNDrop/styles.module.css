@@ -1,0 +1,19 @@
+.board-container{
+    padding: 0 10px;
+}
+.board{
+    height: 100%;
+    flex: 1;
+}
+.board > :global(.ant-col){
+    flex: 1;
+}
+
+.title{
+    text-align: center;
+    margin-bottom: 15px !important;
+}
+
+.card:first-child{
+    padding: 0 0 7.5px 0;
+}

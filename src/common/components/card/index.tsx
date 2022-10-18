@@ -10,6 +10,7 @@ interface IssueCardProps {
   commentCount: number;
   creatorName: string;
   creatorLink: string;
+  isDragging: boolean;
 }
 
 const IssueCard = ({
@@ -19,11 +20,12 @@ const IssueCard = ({
   commentCount,
   creatorName,
   creatorLink,
+  isDragging
 }: IssueCardProps) => {
   const { Title } = Typography;
 
   return (
-    <Card bordered className={styles.card}>
+    <Card bordered className={`${styles.card} ${isDragging && styles['card-dragged']}`}>
       <Space size={8} direction="vertical" style={{ width: "100%" }}>
         <Space className={styles["card-header"]} align="baseline">
           <Title level={5} className={styles["card-title"]}>

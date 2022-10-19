@@ -20,19 +20,19 @@ const IssueCard = ({
   commentCount,
   creatorName,
   creatorLink,
-  isDragging
+  isDragging,
 }: IssueCardProps) => {
   const { Title } = Typography;
 
   return (
-    <Card bordered className={`${styles.card} ${isDragging && styles['card-dragged']}`}>
+    <Card
+      bordered
+      className={`${styles.card} ${isDragging && styles["card-dragged"]}`}
+    >
       <Space size={8} direction="vertical" style={{ width: "100%" }}>
-        <Space className={styles["card-header"]} align="baseline">
-          <Title level={5} className={styles["card-title"]}>
-            {title}
-          </Title>
-          <HolderOutlined style={{ fontSize: "24px", fontWeight: 500 }} />
-        </Space>
+        <Title level={5} className={styles["card-title"]}>
+          {title}
+        </Title>
         <span>
           #{issueNumber} opened {formatTime(openedAtTimestamp)}
         </span>

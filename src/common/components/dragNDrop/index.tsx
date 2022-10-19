@@ -1,9 +1,10 @@
 import { Col, Row, Typography } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IssueCard from "../card";
 import Column from "../column";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import styles from "./styles.module.css";
+import { useAppSelector } from "../../../app/hooks";
 
 interface DragNDropProps {
   toDo: any[];
@@ -12,22 +13,32 @@ interface DragNDropProps {
 }
 
 const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
+  const { repoInfo } = useAppSelector((state) => state.issues);
   const [issueColumns, setIssueColumns] = useState<{
     [key: string]: { title: string; items: any[] };
   }>({
-    "To Do column": {
+    "To-Do-column": {
       title: "To Do",
       items: toDo,
     },
-    "In Progress Column": {
+    "In-Progress-Column": {
       title: "In Progress",
       items: inProgress,
     },
-    "Done Column": {
+    "Done-Column": {
       title: "Done",
       items: done,
     },
   });
+  const [issueRepoStorage, setIssueRepoStorage] = useState<{
+    repo: string;
+    items: any[];
+  }>({ repo: repoInfo!.repoName, items: [] });
+  const [issuesToStore, setIssuesToStore] = useState(
+    JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+      ? JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+      : []
+  );
 
   const { Title } = Typography;
 
@@ -69,6 +80,59 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    setIssueRepoStorage({ repo: repoInfo!.repoName, items: [] });
+    Object.entries(issueColumns).forEach((column) => {
+      const reducedColumn = column[1].items.reduce(
+        (newArr, curItem) => [...newArr, curItem.issueNumber],
+        []
+      );
+      setIssueRepoStorage((prevState) => ({
+        repo: repoInfo!.repoName,
+        items: [...prevState.items, reducedColumn],
+      }));
+    });
+  }, [issueColumns, repoInfo]);
+
+  useEffect(() => {
+    if (issueRepoStorage.items.length !== 0) {
+      if (issuesToStore.some((el: any) => el.repo === issueRepoStorage.repo)) {
+        const objIndex = [...issuesToStore]
+          .map((obj) => obj.repo)
+          .indexOf(issueRepoStorage.repo);
+        const newArr = [...issuesToStore].map((item: any, i: number) => {
+          if (i === objIndex) {
+            return (item = issueRepoStorage);
+          } else {
+            return item;
+          }
+        });
+        setIssuesToStore(newArr);
+      } else {
+        if (
+          issuesToStore.length !== 0 &&
+          issuesToStore.some((el: any) => el.repo !== issueRepoStorage.repo)
+        ) {
+          setIssuesToStore((prevState: any) => [
+            ...prevState,
+            issueRepoStorage,
+          ]);
+        } else {
+          setIssuesToStore([issueRepoStorage]);
+        }
+      }
+    }
+  }, [issueRepoStorage]); //eslint-disable-line
+
+  useEffect(() => {
+    if (repoInfo && issuesToStore.length !== 0) {
+      window.sessionStorage.setItem(
+        "savedRepos",
+        JSON.stringify(issuesToStore)
+      );
+    }
+  }, [issuesToStore, repoInfo]);
 
   return (
     <div className={styles["board-container"]}>

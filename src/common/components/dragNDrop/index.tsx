@@ -32,7 +32,7 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
   });
   const [issueRepoStorage, setIssueRepoStorage] = useState<{
     repo: string;
-    items: any[];
+    items: number[][];
   }>({ repo: repoInfo!.repoName, items: [] });
   const [issuesToStore, setIssuesToStore] = useState(
     JSON.parse(window.sessionStorage.getItem("savedRepos")!)

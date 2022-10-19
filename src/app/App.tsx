@@ -12,30 +12,62 @@ function App() {
   const [toDoIssues, setToDoIssues] = useState<any[]>([]);
   const [inProgressIssues, setInProgressIssues] = useState<any[]>([]);
   const [doneIssues, setDoneIssues] = useState<any[]>([]);
+  const [issuesOrder, setIssuesOrder] = useState(
+    JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+      ? JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+      : []
+  );
 
-  const { issuesList, isLoading } = useAppSelector((state) => state.issues);
+  const { issuesList, isLoading, repoInfo } = useAppSelector(
+    (state) => state.issues
+  );
 
   useEffect(() => {
-    if (issuesList.length !== 0) {
-      issuesList[0].forEach((item: any) => {
-        if (!item.closedAtTimestamp && item.assignees.length === 0) {
-          setToDoIssues((prevState) => [...prevState, item]);
-        } else if (!item.closedAtTimestamp && item.assignees.length !== 0) {
-          setInProgressIssues((prevState) => [...prevState, item]);
-        } else if (item.closedAtTimestamp) {
-          setDoneIssues((prevState) => [...prevState, item]);
-        }
-      });
-    } else if (
-      (issuesList.length === 0 && inProgressIssues.length !== 0) ||
-      doneIssues.length !== 0 ||
-      toDoIssues.length !== 0
-    ) {
-      setToDoIssues([]);
-      setInProgressIssues([]);
-      setDoneIssues([]);
-    }
-  }, [issuesList]); //eslint-disable-line
+    const indexOfRepo = issuesOrder
+        .map((obj: any) => obj.repo)
+        .indexOf(repoInfo?.repoName);
+      if (
+        issuesOrder.length !== 0 &&
+        issuesOrder.some((el: any) => el.repo === repoInfo?.repoName)
+      ) {
+        const repoOrder = issuesOrder[indexOfRepo].items;
+        issuesList[0].forEach((item: any) => {
+          if (repoOrder[0].includes(item.issueNumber)) {
+            setToDoIssues((prevState) => [...prevState, item]);
+          } else if (repoOrder[1].includes(item.issueNumber)) {
+            setInProgressIssues((prevState) => [...prevState, item]);
+          } else if (repoOrder[2].includes(item.issueNumber)) {
+            setDoneIssues((prevState) => [...prevState, item]);
+          }
+        });
+      } else if (issuesList.length !== 0) {
+        issuesList[0].forEach((item: any) => {
+          if (!item.closedAtTimestamp && item.assignees.length === 0) {
+            setToDoIssues((prevState) => [...prevState, item]);
+          } else if (!item.closedAtTimestamp && item.assignees.length !== 0) {
+            setInProgressIssues((prevState) => [...prevState, item]);
+          } else if (item.closedAtTimestamp) {
+            setDoneIssues((prevState) => [...prevState, item]);
+          }
+        });
+      } else if (
+        (issuesList.length === 0 && inProgressIssues.length !== 0) ||
+        doneIssues.length !== 0 ||
+        toDoIssues.length !== 0
+      ) {
+        setToDoIssues([]);
+        setInProgressIssues([]);
+        setDoneIssues([]);
+      }
+  }, [issuesList, issuesOrder, repoInfo]); //eslint-disable-line
+
+  useEffect(() => {
+    setIssuesOrder(
+      JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+        ? JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+        : []
+    );
+  }, [repoInfo]);
 
   return (
     <Layout className={styles.layout}>

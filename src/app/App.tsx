@@ -24,41 +24,41 @@ function App() {
 
   useEffect(() => {
     const indexOfRepo = issuesOrder
-        .map((obj: any) => obj.repo)
-        .indexOf(repoInfo?.repoName);
-      if (
-        issuesOrder.length !== 0 &&
-        issuesOrder.some((el: any) => el.repo === repoInfo?.repoName)
-      ) {
-        const repoOrder = issuesOrder[indexOfRepo].items;
-        issuesList[0].forEach((item: any) => {
-          if (repoOrder[0].includes(item.issueNumber)) {
-            setToDoIssues((prevState) => [...prevState, item]);
-          } else if (repoOrder[1].includes(item.issueNumber)) {
-            setInProgressIssues((prevState) => [...prevState, item]);
-          } else if (repoOrder[2].includes(item.issueNumber)) {
-            setDoneIssues((prevState) => [...prevState, item]);
-          }
-        });
-      } else if (issuesList.length !== 0) {
-        issuesList[0].forEach((item: any) => {
-          if (!item.closedAtTimestamp && item.assignees.length === 0) {
-            setToDoIssues((prevState) => [...prevState, item]);
-          } else if (!item.closedAtTimestamp && item.assignees.length !== 0) {
-            setInProgressIssues((prevState) => [...prevState, item]);
-          } else if (item.closedAtTimestamp) {
-            setDoneIssues((prevState) => [...prevState, item]);
-          }
-        });
-      } else if (
-        (issuesList.length === 0 && inProgressIssues.length !== 0) ||
-        doneIssues.length !== 0 ||
-        toDoIssues.length !== 0
-      ) {
-        setToDoIssues([]);
-        setInProgressIssues([]);
-        setDoneIssues([]);
-      }
+      .map((obj: any) => obj.repo)
+      .indexOf(repoInfo?.repoName);
+    if (
+      issuesOrder.length !== 0 &&
+      issuesOrder.some((el: any) => el.repo === repoInfo?.repoName)
+    ) {
+      const repoOrder = issuesOrder[indexOfRepo].items;
+      issuesList[0].forEach((item: any) => {
+        if (repoOrder[0].includes(item.issueNumber)) {
+          setToDoIssues((prevState) => [...prevState, item]);
+        } else if (repoOrder[1].includes(item.issueNumber)) {
+          setInProgressIssues((prevState) => [...prevState, item]);
+        } else if (repoOrder[2].includes(item.issueNumber)) {
+          setDoneIssues((prevState) => [...prevState, item]);
+        }
+      });
+    } else if (issuesList.length !== 0) {
+      issuesList[0].forEach((item: any) => {
+        if (!item.closedAtTimestamp && item.assignees.length === 0) {
+          setToDoIssues((prevState) => [...prevState, item]);
+        } else if (!item.closedAtTimestamp && item.assignees.length !== 0) {
+          setInProgressIssues((prevState) => [...prevState, item]);
+        } else if (item.closedAtTimestamp) {
+          setDoneIssues((prevState) => [...prevState, item]);
+        }
+      });
+    } else if (
+      (issuesList.length === 0 && inProgressIssues.length !== 0) ||
+      doneIssues.length !== 0 ||
+      toDoIssues.length !== 0
+    ) {
+      setToDoIssues([]);
+      setInProgressIssues([]);
+      setDoneIssues([]);
+    }
   }, [issuesList, issuesOrder, repoInfo]); //eslint-disable-line
 
   useEffect(() => {
@@ -68,6 +68,27 @@ function App() {
         : []
     );
   }, [repoInfo]);
+
+  const handleIndexSorting = (
+    arr: any,
+    type: "toDo" | "inProgress" | "done"
+  ) => {
+    if (
+      issuesOrder.length !== 0 &&
+      arr.length !== 0 &&
+      issuesOrder.some((el: any) => el.repo === repoInfo?.repoName)
+    ) {
+      const indexOfRepo = [...issuesOrder]
+        .map((obj: any) => obj.repo)
+        .indexOf(repoInfo?.repoName);
+      const repoOrder = issuesOrder[indexOfRepo].items;
+      return repoOrder[type === "toDo" ? 0 : type === "inProgress" ? 1 : 2].map(
+        (item: number) => arr.find((obj: any) => obj.issueNumber === item)
+      );
+    } else {
+      return arr;
+    }
+  };
 
   return (
     <Layout className={styles.layout}>
@@ -80,9 +101,9 @@ function App() {
         <>
           <SubHeader />
           <DragNDrop
-            toDo={toDoIssues}
-            inProgress={inProgressIssues}
-            done={doneIssues}
+            toDo={handleIndexSorting(toDoIssues, "toDo")}
+            inProgress={handleIndexSorting(inProgressIssues, "inProgress")}
+            done={handleIndexSorting(doneIssues, "done")}
           />
         </>
       ) : !isLoading ? (

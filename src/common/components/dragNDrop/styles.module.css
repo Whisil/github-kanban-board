@@ -5,9 +5,6 @@
     height: 100%;
     flex: 1;
 }
-.board > :global(.ant-col){
-    flex: 1;
-}
 
 .title{
     text-align: center;

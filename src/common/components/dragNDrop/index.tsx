@@ -141,7 +141,7 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
           onDragEnd={(result) => onDragEnd(result, issueColumns)}
         >
           {Object.entries(issueColumns).map(([columnId, column]) => (
-            <Col span={8} key={columnId}>
+            <Col xs={24} lg={8} key={columnId}>
               <Title level={3} className={styles.title}>
                 {column.title}
               </Title>

@@ -109,12 +109,12 @@ function App() {
       ) : !isLoading ? (
         <Space direction="vertical" className={styles["no-content"]}>
           <GithubOutlined style={{ fontSize: `100px` }} />
-          <h2 className={styles["no-content-phrase"]}>
+          <h2 className={styles["no-content-phrase"]} data-test="preview-phrase">
             Go ahead, load something
           </h2>
         </Space>
       ) : (
-        <Spin className={styles.spinner} />
+        <Spin className={styles.spinner} data-test="spinner" />
       )}
     </Layout>
   );

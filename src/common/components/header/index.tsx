@@ -46,6 +46,7 @@ const Header = () => {
               onChange={(e) => setInputValue(e.target.value)}
               value={inputValue}
               onKeyPress={handleEnterPress}
+              name="form-input"
             />
           </div>
           <Button
@@ -53,6 +54,7 @@ const Header = () => {
             type="primary"
             disabled={!inputValue.includes(`github.com`)}
             htmlType="submit"
+            name="form-btn"
           >
             Load issues
           </Button>

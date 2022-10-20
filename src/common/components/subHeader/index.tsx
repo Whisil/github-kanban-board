@@ -10,9 +10,13 @@ const SubHeader = () => {
   return (
     <Space size="large" className={styles["sub-header"]}>
       <Space className={styles["link-container"]}>
-        <a href={repoInfo?.ownerLink}>{repoInfo?.ownerName}</a>
+        <a href={repoInfo?.ownerLink} data-test="repo-owner">
+          {repoInfo?.ownerName}
+        </a>
         <RightOutlined style={{ color: `#1890ff` }} />
-        <a href={repoInfo?.repoLink}>{repoInfo?.repoName}</a>
+        <a href={repoInfo?.repoLink} data-test="repo-name">
+          {repoInfo?.repoName}
+        </a>
       </Space>
       <div className={styles.stars}>
         <StarFilled style={{ color: `#f59f0a` }} />

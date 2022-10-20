@@ -17,7 +17,7 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
   const [issueColumns, setIssueColumns] = useState<{
     [key: string]: { title: string; items: any[] };
   }>({
-    "To-Do-column": {
+    "To-Do-Column": {
       title: "To Do",
       items: toDo,
     },
@@ -141,11 +141,11 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
           onDragEnd={(result) => onDragEnd(result, issueColumns)}
         >
           {Object.entries(issueColumns).map(([columnId, column]) => (
-            <Col xs={24} lg={8} key={columnId}>
+            <Col xs={24} lg={8} key={columnId} data-test="column">
               <Title level={3} className={styles.title}>
                 {column.title}
               </Title>
-              <Droppable droppableId={`${columnId}`} key={columnId}>
+              <Droppable droppableId={`${columnId}`} key={columnId} data-test="droppable">
                 {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
                     <Column title={column.title}>
@@ -154,6 +154,7 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
                           key={`${item.issueNumber}`}
                           draggableId={`${item.issueNumber}`}
                           index={i}
+                          data-test={item.title}
                         >
                           {(provided, snapshot) => (
                             <div

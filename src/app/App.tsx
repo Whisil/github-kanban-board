@@ -13,8 +13,8 @@ function App() {
   const [inProgressIssues, setInProgressIssues] = useState<any[]>([]);
   const [doneIssues, setDoneIssues] = useState<any[]>([]);
   const [issuesOrder, setIssuesOrder] = useState(
-    JSON.parse(window.sessionStorage.getItem("savedRepos")!)
-      ? JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+    JSON.parse(window.localStorage.getItem("savedRepos")!)
+      ? JSON.parse(window.localStorage.getItem("savedRepos")!)
       : []
   );
 
@@ -63,8 +63,8 @@ function App() {
 
   useEffect(() => {
     setIssuesOrder(
-      JSON.parse(window.sessionStorage.getItem("savedRepos")!)
-        ? JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+      JSON.parse(window.localStorage.getItem("savedRepos")!)
+        ? JSON.parse(window.localStorage.getItem("savedRepos")!)
         : []
     );
   }, [repoInfo]);

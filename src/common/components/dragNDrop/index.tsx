@@ -35,8 +35,8 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
     items: number[][];
   }>({ repo: repoInfo!.repoName, items: [] });
   const [issuesToStore, setIssuesToStore] = useState(
-    JSON.parse(window.sessionStorage.getItem("savedRepos")!)
-      ? JSON.parse(window.sessionStorage.getItem("savedRepos")!)
+    JSON.parse(window.localStorage.getItem("savedRepos")!)
+      ? JSON.parse(window.localStorage.getItem("savedRepos")!)
       : []
   );
 
@@ -127,7 +127,7 @@ const DragNDrop = ({ toDo, inProgress, done }: DragNDropProps) => {
 
   useEffect(() => {
     if (repoInfo && issuesToStore.length !== 0) {
-      window.sessionStorage.setItem(
+      window.localStorage.setItem(
         "savedRepos",
         JSON.stringify(issuesToStore)
       );

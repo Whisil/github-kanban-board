@@ -47,6 +47,6 @@ export const getRepo = async (url: string) => {
         },
       ];
     });
-  console.log(response);
+
   return response;
 };

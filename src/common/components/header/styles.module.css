@@ -14,3 +14,7 @@
 .header-space :global(.ant-space-item):first-child{
     width: 100%;
 }
+
+.radius{
+    border-radius: 8px !important;
+}

@@ -13,9 +13,10 @@
     display: block;
     height: calc(100% + 7.5px);
     width: calc(100% + 15px);
+    border-radius: 14px;
     top: -7.5px;
     left: -7.5px;
-    background-color: #c7c5c5
+    background-color: #3c3c44;
 }
 
 .column-inner{

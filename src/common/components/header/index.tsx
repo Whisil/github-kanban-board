@@ -47,6 +47,7 @@ const Header = () => {
               value={inputValue}
               onKeyPress={handleEnterPress}
               name="form-input"
+              className={styles.radius}
             />
           </div>
           <Button
@@ -55,6 +56,7 @@ const Header = () => {
             disabled={!inputValue.includes(`github.com`)}
             htmlType="submit"
             name="form-btn"
+            className={styles.radius}
           >
             Load issues
           </Button>

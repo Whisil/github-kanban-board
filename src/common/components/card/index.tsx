@@ -1,4 +1,3 @@
-import { HolderOutlined } from "@ant-design/icons";
 import { Card, Space, Typography } from "antd";
 import { formatTime } from "../../utils/timestampFormatter";
 import styles from "./styles.module.css";

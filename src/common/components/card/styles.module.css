@@ -2,6 +2,7 @@
     border-radius: 15px !important;
     padding: 15px !important;
     border-color: #848484 !important;
+    background: #fff !important;
 }
 
 .card > :global(.ant-card-body){
@@ -14,7 +15,7 @@
 }
 
 .card-dragged{
-    box-shadow: 0px 0px 20px 0px rgba(85,94,189,1);
+    box-shadow: 0px 0px 15px 0px rgba(255,255,255,1);
 }
 
 .card-title{

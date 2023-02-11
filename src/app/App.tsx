@@ -116,7 +116,7 @@ function App() {
         </>
       ) : !isLoading ? (
         <Space direction="vertical" className={styles["no-content"]}>
-          <GithubOutlined style={{ fontSize: `100px` }} />
+          <GithubOutlined style={{ fontSize: `100px`, color: "#fff" }} />
           <h2
             className={styles["no-content-phrase"]}
             data-test="preview-phrase"

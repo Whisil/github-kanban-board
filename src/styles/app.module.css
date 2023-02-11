@@ -1,5 +1,5 @@
 .layout{
-    background-color: #e3e1e1;
+    background-color: #000 !important;
     min-height: 100vh !important;
     padding: 0 20px 20px 20px;
     display: flex;
@@ -15,15 +15,16 @@
 
 .no-content-phrase{
     font-weight: 500;
+    color: #fff;
 }
 
 .spinner{
     margin: auto !important;
 }
 .spinner :global(.ant-spin-dot){
-    font-size: 36px;
+    font-size: 54px;
 }
 .spinner :global(.ant-spin-dot) i{
-    height: 18px;
-    width: 18px;
+    height: 24px;
+    width: 24px;
 }
